@@ -8,7 +8,7 @@
     "rollup": "rollup src/js/index.js --config rollup.config.iife.js",
     "rollup:prod": "rollup src/js/index.js --config rollup.config.iife.prod.js",
     "scss": "node-sass src/scss/index.scss dist/css/sass.css",
-    "serve": "http-server ./dist -p 8006",
+    "serve": "http-server ./dist -p 8152",
     "watch": "npm-watch",
     "start": "concurrently 'npm run serve' 'npm run watch'",
     "ghpages": "git subtree push --prefix dist origin gh-pages"

@@ -12,7 +12,7 @@ import globals from 'rollup-plugin-node-globals';
 export default {
   input: 'src/js/index.js',
   output: {
-    file: 'dist/js/app-iife.js',
+    file: 'dist/js/app.js',
     format: 'iife',
     sourceMap: true
   },
