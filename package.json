@@ -1,0 +1,49 @@
+{
+  "name": "cm-jordang-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup src/js/index.js --config rollup.config.iife.js",
+    "rollup:prod": "rollup src/js/index.js --config rollup.config.iife.prod.js",
+    "scss": "node-sass src/scss/index.scss dist/css/sass.css",
+    "serve": "http-server ./dist -p 8006",
+    "watch": "npm-watch",
+    "start": "concurrently 'npm run serve' 'npm run watch'",
+    "ghpages": "git subtree push --prefix dist origin gh-pages"
+  },
+  "watch": {
+    "rollup": "src/**/*.js",
+    "scss": "src/**/*.scss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skindc/cm-jordang-website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skindc/cm-jordang-website/issues"
+  },
+  "homepage": "https://github.com/skindc/cm-jordang-website#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "d3": "^5.1.0",
+    "d3-sankey": "^0.7.1",
+    "http-server": "^0.11.1",
+    "node-sass": "^4.8.3",
+    "npm-watch": "^0.3.0",
+    "rollup": "^0.58.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-globals": "^1.2.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-strip": "^1.1.1",
+    "rollup-plugin-uglify": "^3.0.0"
+  }
+}
