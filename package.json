@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "rollup": "rollup src/js/index.js --config rollup.config.iife.js",
     "rollup:prod": "rollup src/js/index.js --config rollup.config.iife.prod.js",
-    "scss": "node-sass src/scss/index.scss dist/css/sass.css",
+    "scss": "node-sass src/scss/index.scss dist/css/styles.css --importer node_modules/node-sass-import",
     "serve": "http-server ./dist -p 8152",
     "watch": "npm-watch",
     "start": "concurrently 'npm run serve' 'npm run watch'",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/skindc/cm-jordang-website/issues"
   },
-  "homepage": "https://github.com/skindc/cm-jordang-website#readme",
+  "homepage": "https://skindc.github.io/cm-jordang-website/",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -36,6 +36,7 @@
     "d3-sankey": "^0.7.1",
     "http-server": "^0.11.1",
     "node-sass": "^4.8.3",
+    "node-sass-import": "^2.0.0",
     "npm-watch": "^0.3.0",
     "rollup": "^0.58.1",
     "rollup-plugin-babel": "^3.0.3",
@@ -45,5 +46,8 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-strip": "^1.1.1",
     "rollup-plugin-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.0"
   }
 }

@@ -1,0 +1,442 @@
+//@import 'bootstrap/scss/bootstrap-reboot.scss';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+@import 'bootstrap/scss/bootstrap-reboot.scss';
+@import 'bootstrap/scss/mixins/_hover.scss';
+@import 'bootstrap/scss/mixins/_breakpoints.scss';
+@import 'bootstrap/scss/mixins/_grid.scss';
+@import 'bootstrap/scss/mixins/_forms.scss';
+@import 'bootstrap/scss/mixins/_buttons.scss';
+
+
+
+
+
+
+/* natural box model */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+
+
+
+
+/* Browser Upgrade Prompt */
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+
+
+
+
+/* hides an element, but not from screen readers */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+
+/* no break */
+
+.nobr {
+  white-space: nowrap;
+}
+
+
+/*
+    STRUCTURE
+*/
+
+
+/*
+    TYPOGRAPHY
+*/
+
+
+/*
+    IMAGES
+*/
+
+img {
+  width: 100%;
+  display: block;
+}
+
+/* clearfix - in case you decide to float elements */
+
+.group::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+/*
+JG Namespace
+ */
+
+
+/*
+    STRUCTURE
+*/
+
+
+/*
+    TYPOGRAPHY
+*/
+
+
+/*
+    IMAGES
+*/
+
+/*
+GLOBAL STRUCTURE
+ */
+
+$nvc-color-primary: #006ec1;
+
+$ncv-grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+@include _assert-ascending($ncv-grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($ncv-grid-breakpoints);
+
+$ncv-container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+) !default;
+
+@include _assert-ascending($ncv-container-max-widths, "$ncv-container-max-widths");
+
+.ncv-html,
+.ncv-body {
+  height: 100%;
+  margin: 0;
+}
+
+.ncv-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.ncv-container-fluid {
+  @include make-container()
+}
+
+.ncv-container {
+  max-width: 576px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.ncv-app {
+  //@include make-container();
+  border: 1pt solid #DDD;
+  flex: 1 0 auto;
+}
+
+.ncv-app-top {
+  min-height: 20px;
+  background: $nvc-color-primary;
+}
+
+.ncv-app-header {
+  background: #fff;
+}
+
+.ncv-header-content {
+  border: 1pt solid #DDD;
+}
+
+.ncv-navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding: $navbar-padding-y $navbar-padding-x; // Because flex properties aren't inherited, we need to redeclare these first
+  // few properities so that content nested within behave properly.
+  >.container,
+  >.container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @each $breakpoint in map-keys($ncv-grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $ncv-grid-breakpoints);
+    $infix: breakpoint-infix($next, $ncv-grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        > .container,
+        > .container-fluid {
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
+
+      @include media-breakpoint-up($next) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        //justify-content: flex-start;
+
+        .ncv-navbar-nav {
+          flex-direction: row;
+
+          .dropdown-menu {
+            position: absolute;
+          }
+
+          .ncv-nav-link {
+            padding-right: $navbar-nav-link-padding-x;
+            padding-left: $navbar-nav-link-padding-x;
+          }
+        }
+
+        // For nesting containers, have to redeclare for alignment purposes
+        > .container,
+        > .container-fluid {
+          flex-wrap: nowrap;
+        }
+
+        .ncv-navbar-collapse {
+          display: flex !important;  // stylelint-disable-line declaration-no-important
+
+          // Changes flex-bases to auto because of an IE10 bug
+          flex-basis: auto;
+        }
+
+        .ncv-navbar-toggler {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.ncv-navbar-brand {
+  margin-right: auto;
+  display: inline-block;
+  padding-top: $navbar-brand-padding-y;
+  padding-bottom: $navbar-brand-padding-y;
+  margin-right: $navbar-padding-x;
+  font-size: $navbar-brand-font-size;
+  line-height: inherit;
+  white-space: nowrap;
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+}
+
+.ncv-navbar-nav {
+
+  display: flex;
+  flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  .ncv-nav-link {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .ncv-dropdown-menu {
+    position: static;
+    float: none;
+  }
+}
+
+.ncv-navbar-colors {
+  .nvc-navbar-brand {
+    color: $navbar-light-active-color;
+
+    @include hover-focus {
+      color: $navbar-light-active-color;
+    }
+  }
+
+  .nvc-navbar-nav {
+    .nvc-nav-link {
+      color: $navbar-light-color;
+
+      @include hover-focus {
+        color: $navbar-light-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-light-disabled-color;
+      }
+    }
+
+    .show > .nvc-nav-link,
+    .active > .nvc-nav-link,
+    .nvc-nav-link.show,
+    .nvc-nav-link.active {
+      color: $navbar-light-active-color;
+    }
+  }
+
+  .nvc-navbar-toggler {
+    color: $navbar-light-color;
+    border-color: $navbar-light-toggler-border-color;
+  }
+
+  .nvc-navbar-toggler-icon {
+    background-image: $navbar-light-toggler-icon-bg;
+  }
+
+  .nvc-navbar-text {
+    color: $navbar-light-color;
+    a {
+      color: $navbar-light-active-color;
+
+      @include hover-focus {
+        color: $navbar-light-active-color;
+      }
+    }
+  }
+}
+
+.ncv-nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.ncv-nav-link {
+  display: block;
+  padding: $nav-link-padding-y $nav-link-padding-x;
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+
+  // Disabled state lightens text
+  &.disabled {
+    color: $nav-link-disabled-color;
+  }
+}
+
+.ncv-logo-100 {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  vertical-align: top;
+  overflow: hidden;
+
+  >a.ncv-logo-link {
+    padding-bottom: 40%
+  }
+}
+
+.ncv-app-section {
+  @include make-container()
+}
+
+.ncv-section-content {
+  @include make-container();
+  @include make-container-max-widths($ncv-container-max-widths);
+  border: 1pt solid #DDD;
+}
+
+.ncv-app-footer {
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.ncv-footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1pt solid #DDD;
+  font-size: 0.7rem;
+}
+
+.ncv-footer-block {
+  padding: $navbar-padding-y $navbar-padding-x;
+}
+
+.ncv-footer-company {
+  display: flex;
+  flex-direction: column;
+}
+
+.ncv-footer-contact {
+  display: flex;
+  flex-direction: column;
+  &-detail {
+    display:block
+  }
+}
+
+.ncv-footer-map-nav {
+  display: flex;
+  flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+  padding-left: 0;
+  padding-bottom: $navbar-padding-y;
+  margin-bottom: 0;
+  list-style: none;
+  .ncv-map-link {
+    padding: 0;
+  }
+}
+
+
+/*
+    LINKS
+
+
+*/
+
+
+/*
+    TABLES
+*/
+
+
+/*
+    HOME
+*/
+
+
+/*
+    ANOTHER PAGE
+*/
+
