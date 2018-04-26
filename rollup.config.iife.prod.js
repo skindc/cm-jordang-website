@@ -73,7 +73,7 @@ export default {
     }),
 
     //Json plugin does not work and can not parse keys as strings
-    json({
+    /*json({
       // All JSON files will be parsed by default,
       // but you can also specifically include/exclude files
       //include: 'node_modules/**',
@@ -87,10 +87,10 @@ export default {
       // specify indentation for the generated default export —
       // defaults to '\t'
       indent: '  '
-    }),
-    babel({
+    }),*/
+    /*babel({
       exclude: 'node_modules/**',
-    }),
+    }),*/
     uglify()
   ],
 };
