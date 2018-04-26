@@ -1,13 +1,18 @@
 //@import 'bootstrap/scss/bootstrap-reboot.scss';
 @import "bootstrap/scss/functions";
+@import "./partials/variables";
+
 @import "bootstrap/scss/variables";
 
-@import 'bootstrap/scss/bootstrap-reboot.scss';
 @import 'bootstrap/scss/mixins/_hover.scss';
+@import 'bootstrap/scss/mixins/_lists.scss';
 @import 'bootstrap/scss/mixins/_breakpoints.scss';
 @import 'bootstrap/scss/mixins/_grid.scss';
 @import 'bootstrap/scss/mixins/_forms.scss';
 @import 'bootstrap/scss/mixins/_buttons.scss';
+
+@import 'bootstrap/scss/bootstrap-reboot.scss';
+@import 'bootstrap/scss/type';
 
 
 
@@ -57,11 +62,17 @@ html {
 }
 
 
+
+
+
 /* no break */
 
 .nobr {
   white-space: nowrap;
 }
+
+
+
 
 
 /*
@@ -83,6 +94,10 @@ img {
   display: block;
 }
 
+
+
+
+
 /* clearfix - in case you decide to float elements */
 
 .group::after {
@@ -90,6 +105,8 @@ img {
   display: table;
   clear: both;
 }
+
+
 
 
 
@@ -112,31 +129,34 @@ JG Namespace
     IMAGES
 */
 
+
 /*
 GLOBAL STRUCTURE
  */
 
 $nvc-color-primary: #006ec1;
 
-$ncv-grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px
-) !default;
+
+
+$ncv-grid-breakpoints: ( xs: 0,
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px) !default;
 
 @include _assert-ascending($ncv-grid-breakpoints, "$grid-breakpoints");
 @include _assert-starts-at-zero($ncv-grid-breakpoints);
 
-$ncv-container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px
-) !default;
+$ncv-container-max-widths: ( sm: 540px,
+md: 720px,
+lg: 960px,
+xl: 960px) !default;
 
 @include _assert-ascending($ncv-container-max-widths, "$ncv-container-max-widths");
+
+$sm-bpt: map-get($ncv-grid-breakpoints, 'sm');
+$sm-bpt-next: breakpoint-next('sm', $ncv-grid-breakpoints);
+$sm-bpt-infix: breakpoint-infix('sm', $ncv-grid-breakpoints);
 
 .ncv-html,
 .ncv-body {
@@ -162,7 +182,7 @@ $ncv-container-max-widths: (
 
 .ncv-app {
   //@include make-container();
-  border: 1pt solid #DDD;
+  //border: 1pt solid #DDD;
   flex: 1 0 auto;
 }
 
@@ -176,12 +196,13 @@ $ncv-container-max-widths: (
 }
 
 .ncv-header-content {
-  border: 1pt solid #DDD;
+  overflow-y: scroll; //border: 1pt solid #DDD;
 }
 
 .ncv-navbar {
   position: relative;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap; // allow us to do the line break for collapsing content
   align-items: center;
   justify-content: space-between; // space out brand from logo
@@ -195,56 +216,30 @@ $ncv-container-max-widths: (
     justify-content: space-between;
   }
 
-  @each $breakpoint in map-keys($ncv-grid-breakpoints) {
-    $next: breakpoint-next($breakpoint, $ncv-grid-breakpoints);
-    $infix: breakpoint-infix($next, $ncv-grid-breakpoints);
+  .ncv-navbar-nav {
+    flex-direction: row;
 
-    &#{$infix} {
-      @include media-breakpoint-down($breakpoint) {
-        > .container,
-        > .container-fluid {
-          padding-right: 0;
-          padding-left: 0;
-        }
-      }
+    .dropdown-menu {
+      position: absolute;
+    }
 
-      @include media-breakpoint-up($next) {
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        //justify-content: flex-start;
-
-        .ncv-navbar-nav {
-          flex-direction: row;
-
-          .dropdown-menu {
-            position: absolute;
-          }
-
-          .ncv-nav-link {
-            padding-right: $navbar-nav-link-padding-x;
-            padding-left: $navbar-nav-link-padding-x;
-          }
-        }
-
-        // For nesting containers, have to redeclare for alignment purposes
-        > .container,
-        > .container-fluid {
-          flex-wrap: nowrap;
-        }
-
-        .ncv-navbar-collapse {
-          display: flex !important;  // stylelint-disable-line declaration-no-important
-
-          // Changes flex-bases to auto because of an IE10 bug
-          flex-basis: auto;
-        }
-
-        .ncv-navbar-toggler {
-          display: none;
-        }
-      }
+    .ncv-nav-link {
+      font-size: 0.8em;
+      padding-right: $navbar-nav-link-padding-x;
+      padding-left: $navbar-nav-link-padding-x;
     }
   }
+
+  @include media-breakpoint-up('md', $ncv-grid-breakpoints) {
+    flex-direction: row;
+  }
+
+  /*@include media-breakpoint-only('sm', $ncv-grid-breakpoints) {
+    flex-direction: column;
+  }*/
+  /*@include media-breakpoint-up('sm') {
+    flex-direction: row;
+  }*/
 }
 
 .ncv-navbar-brand {
@@ -303,8 +298,8 @@ $ncv-container-max-widths: (
       }
     }
 
-    .show > .nvc-nav-link,
-    .active > .nvc-nav-link,
+    .show>.nvc-nav-link,
+    .active>.nvc-nav-link,
     .nvc-nav-link.show,
     .nvc-nav-link.active {
       color: $navbar-light-active-color;
@@ -346,9 +341,7 @@ $ncv-container-max-widths: (
 
   @include hover-focus {
     text-decoration: none;
-  }
-
-  // Disabled state lightens text
+  } // Disabled state lightens text
   &.disabled {
     color: $nav-link-disabled-color;
   }
@@ -372,12 +365,14 @@ $ncv-container-max-widths: (
 
 .ncv-section-content {
   @include make-container();
-  @include make-container-max-widths($ncv-container-max-widths);
-  border: 1pt solid #DDD;
+  @include make-container-max-widths($ncv-container-max-widths); //border: 1pt solid #DDD;
 }
 
 .ncv-app-footer {
   background: #fff;
+  margin-top: 50px;
+  padding: $navbar-padding-y 0;
+  border-top: 1pt solid #DDD;
   flex-shrink: 0;
 }
 
@@ -385,7 +380,6 @@ $ncv-container-max-widths: (
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1pt solid #DDD;
   font-size: 0.7rem;
 }
 
@@ -402,7 +396,7 @@ $ncv-container-max-widths: (
   display: flex;
   flex-direction: column;
   &-detail {
-    display:block
+    display: block
   }
 }
 
@@ -417,6 +411,13 @@ $ncv-container-max-widths: (
     padding: 0;
   }
 }
+
+
+
+
+
+
+
 
 
 /*
@@ -435,8 +436,260 @@ $ncv-container-max-widths: (
     HOME
 */
 
+.ncv-home-section {
+  &--carousel {
+    padding: 0 !important;
+  }
+}
+
+.ncv-home-carousel {
+
+  /*display: inline-block;
+  position: relative;
+  width: 100%;
+  vertical-align: top;
+  overflow: hidden;
+  padding-bottom: 10%;*/
+  .ncv-home-carousel-content {
+
+    /*display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;*/
+  }
+}
+
+
+.ncv-home-carousel-item {
+  position: relative;
+
+  .ncv-carousel-item-image {
+
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;
+    padding-bottom: 60%;
+    background-size: cover;
+    background-position: center; //min-height: 200px;
+    @include media-breakpoint-up('sm', $ncv-grid-breakpoints) {
+      padding-bottom: 41%;
+    }
+
+    @include media-breakpoint-up('md', $ncv-grid-breakpoints) {
+      padding-bottom: 41%;
+    }
+
+    @include media-breakpoint-up('lg', $ncv-grid-breakpoints) {
+      padding-bottom: 29%;
+    }
+  }
+
+  .ncv-carousel-item-image {
+
+    //min-height: 300px;
+  }
+  .ncv-carousel-item-text {
+    position: absolute;
+    max-width: 50%;
+    color: #fff;
+    .ncv-carousel-item-text-primary {
+      display: block;
+      font-size: $h1-font-size;
+      text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.9);
+      line-height: $h1-font-size;
+    }
+    .ncv-carousel-item-text-secodary {
+      display: block;
+      font-size: 1rem;
+      text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
+.ncv-carousel-item-image--0 {
+
+  background: url("../images/adult-body-close-up-512-280-92.jpg");
+
+  @include media-breakpoint-up('sm',
+  $ncv-grid-breakpoints) {
+    background: url("../images/adult-body-close-up-800-400-92.jpg");
+  }
+
+  @include media-breakpoint-up('md',
+  $ncv-grid-breakpoints) {
+    background: url("../images/adult-body-close-up-1024-476-92.jpg");
+  }
+
+  @include media-breakpoint-up('lg',
+  $ncv-grid-breakpoints) {
+    background: url("../images/adult-body-close-up-1366-573-92.jpg");
+  }
+}
+
+.ncv-carousel-item-image--1 {
+
+  background: url("../images/appointment-appointment-book-512-280-92.jpg");
+
+  @include media-breakpoint-up('sm',
+  $ncv-grid-breakpoints) {
+    background: url("../images/appointment-appointment-book-800-400-92.jpg");
+  }
+
+  @include media-breakpoint-up('md',
+  $ncv-grid-breakpoints) {
+    background: url("../images/appointment-appointment-book-1024-476-92.jpg");
+  }
+
+  @include media-breakpoint-up('lg',
+  $ncv-grid-breakpoints) {
+    background: url("../images/appointment-appointment-book-1366-573-92.jpg");
+  }
+}
+
+.ncv-carousel-item-image--2 {
+
+  background: url("../images/biology-clinic-doctor-512-280-92.jpg");
+
+  @include media-breakpoint-up('sm',
+  $ncv-grid-breakpoints) {
+    background: url("../images/biology-clinic-doctor-800-400-92.jpg");
+  }
+
+  @include media-breakpoint-up('md',
+  $ncv-grid-breakpoints) {
+    background: url("../images/biology-clinic-doctor-1024-476-92.jpg");
+  }
+
+  @include media-breakpoint-up('lg',
+  $ncv-grid-breakpoints) {
+    background: url("../images/biology-clinic-doctor-1366-573-92.jpg");
+  }
+}
+
+.ncv-carousel-item-image--3 {
+
+  background: url("../images/care-clinic-disease-512-280-92.jpg");
+
+  @include media-breakpoint-up('sm',
+  $ncv-grid-breakpoints) {
+    background: url("../images/care-clinic-disease-800-400-92.jpg");
+  }
+
+  @include media-breakpoint-up('md',
+  $ncv-grid-breakpoints) {
+    background: url("../images/care-clinic-disease-1024-476-92.jpg");
+  }
+
+  @include media-breakpoint-up('lg',
+  $ncv-grid-breakpoints) {
+    background: url("../images/care-clinic-disease-1366-573-92.jpg");
+  }
+}
+
+
+
+
+.ncv-carousel-item-text--0 {
+  bottom: 30px;
+}
+
+.ncv-carousel-item-text--1 {
+  bottom: 30px;
+  color: #333 !important;
+}
+
+.ncv-carousel-item-text--2 {
+  bottom: 30px;
+  color: #333 !important; //color: #333 !important;
+}
+
+.ncv-carousel-item-text--3 {
+  bottom: 30px;
+}
+
+
+$gutter: 1em;
+
+.ncv-home-services {
+
+  width: 100%; //display: flex;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+
+  justify-content: space-between;
+
+  //margin-left: -$gutter;
+
+  padding-top: 50px;
+  //border: 1pt solid red; //align-content: center;
+}
+
+.ncv-home-service {
+
+  .ncv-home-service-content {
+    position: relative;
+    padding: 10px;
+  }
+
+  .h1 {
+    font-size: $h3-font-size
+  }
+
+  .ncv-home-service-text {
+    //border: 1pt solid $nvc-color-primary;
+  }
+
+  .ncv-home-service-icon {
+    position: relative;
+    top: -3em;
+    margin-bottom: -3em;
+    left: 50%;
+    transform: translate(-2.5em);
+    //top: -2em;
+    width: 5em;
+    height: 5em;
+    border-radius: 2em;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1pt solid transparent;
+    background: #fff;
+    //border: 1pt solid $nvc-color-primary;
+  } //flex: 0 0 100%;
+
+  border: 1pt solid #DDD;
+  box-shadow: 3px 3px 3px #DDD;
+
+  flex: 0 0 100%;
+  flex-direction: column;
+  margin: $gutter * 2 0;
+
+  @include media-breakpoint-up('sm',
+  $ncv-grid-breakpoints) {
+    //border: 1pt solid yellow;
+    flex: 0 0 48%;
+  }
+
+  @include media-breakpoint-up('md',
+  $ncv-grid-breakpoints) {
+    //border: 1pt solid green;
+    flex: 0 0 32%;
+  }
+
+  @include media-breakpoint-up('lg',
+  $ncv-grid-breakpoints) {
+    //border: 1pt solid red;
+  }
+}
+
 
 /*
     ANOTHER PAGE
 */
-
