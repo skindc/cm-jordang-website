@@ -5,10 +5,10 @@ window.jQuery = window.jquery = window.$ = jQuery
 
 //Make sure the document is loaded before we do anything
 $(document).ready(() => {
-  console.log('document ready')
+  console.log('document ready ', location.pathname)
 
   //If home page
-  if (/.*index\.html$/.test(location.pathname)) {
+  if (/(.*index\.html|\/)$/.test(location.pathname)) {
     //Seems this has to be a class and not id
     //
     console.log('load carousel')
