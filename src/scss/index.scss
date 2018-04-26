@@ -426,6 +426,38 @@ $sm-bpt-infix: breakpoint-infix('sm', $ncv-grid-breakpoints);
   }
 }
 
+.ncv-app-section {
+  &+.ncv-app-section {
+
+    .ncv-section-content {
+      border-top: 1pt solid #DDD;
+      padding-top: 2em;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+    LINKS
+
+
+*/
+
+
+/*
+    TABLES
+*/
+
+
 /*
     HOME
 */
@@ -434,6 +466,11 @@ $sm-bpt-infix: breakpoint-infix('sm', $ncv-grid-breakpoints);
   &--carousel {
     padding: 0 !important;
   }
+}
+
+.ncv-home-carousel-item-content {
+  @include make-container();
+  @include make-container-max-widths($ncv-container-max-widths); //border: 1pt solid #DDD;
 }
 
 
@@ -670,6 +707,8 @@ $gutter: 1em;
     }
   }
 }
+
+
 
 
 /*

@@ -42,7 +42,7 @@
           }
         }),
 
-        map = L.map('ncv-home-location-map').setView([39.9526, 75.1652], 8)
+        map = L.map('ncv-home-location-map').setView([39.9526, -75.1652], 8)
         .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
     }

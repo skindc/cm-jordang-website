@@ -636,11 +636,42 @@ GLOBAL STRUCTURE
   .ncv-footer-map-nav .ncv-map-link {
     padding: 0; }
 
+.ncv-app-section + .ncv-app-section .ncv-section-content {
+  border-top: 1pt solid #DDD;
+  padding-top: 2em; }
+
+/*
+    LINKS
+
+
+*/
+/*
+    TABLES
+*/
 /*
     HOME
 */
 .ncv-home-section--carousel {
   padding: 0 !important; }
+
+.ncv-home-carousel-item-content {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto; }
+  @media (min-width: 576px) {
+    .ncv-home-carousel-item-content {
+      max-width: 540px; } }
+  @media (min-width: 768px) {
+    .ncv-home-carousel-item-content {
+      max-width: 720px; } }
+  @media (min-width: 992px) {
+    .ncv-home-carousel-item-content {
+      max-width: 960px; } }
+  @media (min-width: 1200px) {
+    .ncv-home-carousel-item-content {
+      max-width: 960px; } }
 
 .ncv-home-carousel-item {
   position: relative; }
