@@ -636,18 +636,6 @@ GLOBAL STRUCTURE
   .ncv-footer-map-nav .ncv-map-link {
     padding: 0; }
 
-.ncv-app-section + .ncv-app-section .ncv-section-content {
-  border-top: 1pt solid #DDD;
-  padding-top: 2em; }
-
-/*
-    LINKS
-
-
-*/
-/*
-    TABLES
-*/
 /*
     HOME
 */

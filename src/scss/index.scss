@@ -426,38 +426,6 @@ $sm-bpt-infix: breakpoint-infix('sm', $ncv-grid-breakpoints);
   }
 }
 
-.ncv-app-section {
-  &+.ncv-app-section {
-
-    .ncv-section-content {
-      border-top: 1pt solid #DDD;
-      padding-top: 2em;
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-/*
-    LINKS
-
-
-*/
-
-
-/*
-    TABLES
-*/
-
-
 /*
     HOME
 */
@@ -702,8 +670,6 @@ $gutter: 1em;
     }
   }
 }
-
-
 
 
 /*
