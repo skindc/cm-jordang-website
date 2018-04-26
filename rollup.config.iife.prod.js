@@ -8,7 +8,7 @@ import uglify from 'rollup-plugin-uglify';
 
 export default {
   entry: 'src/js/index.js',
-  dest: 'dist/js/app-iife.js',
+  dest: 'dist/js/app.js',
   format: 'iife',
   external: [ 'd3', 'jQuery' ],
   //globals: { 'd3': 'd3' },
