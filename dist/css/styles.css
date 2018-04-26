@@ -636,6 +636,10 @@ GLOBAL STRUCTURE
   .ncv-footer-map-nav .ncv-map-link {
     padding: 0; }
 
+.ncv-app-section + .ncv-app-section .ncv-section-content {
+  border-top: 1pt solid #DDD;
+  padding-top: 2em; }
+
 /*
     LINKS
 
@@ -649,19 +653,6 @@ GLOBAL STRUCTURE
 */
 .ncv-home-section--carousel {
   padding: 0 !important; }
-
-.ncv-home-carousel {
-  /*display: inline-block;
-  position: relative;
-  width: 100%;
-  vertical-align: top;
-  overflow: hidden;
-  padding-bottom: 10%;*/ }
-  .ncv-home-carousel .ncv-home-carousel-content {
-    /*display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 0;*/ }
 
 .ncv-home-carousel-item {
   position: relative; }
@@ -765,7 +756,7 @@ GLOBAL STRUCTURE
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-top: 50px; }
+  padding-top: 2em; }
 
 .ncv-home-service {
   border: 1pt solid #DDD;
@@ -800,6 +791,12 @@ GLOBAL STRUCTURE
   @media (min-width: 768px) {
     .ncv-home-service {
       flex: 0 0 32%; } }
+
+.ncv-home-section--location .ncv-home-location {
+  padding-top: 2em; }
+  .ncv-home-section--location .ncv-home-location .ncv-home-location-map {
+    width: 100%;
+    height: 300px; }
 
 /*
     ANOTHER PAGE
