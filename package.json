@@ -8,6 +8,7 @@
     "rollup": "rollup src/js/index.js --config rollup.config.iife.js",
     "rollup:prod": "rollup src/js/index.js --config rollup.config.iife.prod.js",
     "scss": "node-sass src/scss/index.scss dist/css/styles.css --importer node_modules/node-sass-import",
+    "resetscss": "node-sass src/scss/reset.scss dist/css/reset.css --importer node_modules/node-sass-import",
     "serve": "http-server ./dist -p 8152",
     "watch": "npm-watch",
     "start": "concurrently 'npm run serve' 'npm run watch'",
